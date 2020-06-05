@@ -1,38 +1,41 @@
-import React,{Component} from 'react';
+import React, { Component } from 'react';
 import api from '../../services/api';
 
 import './index.css';
 
 
-export default class GitCard extends Component{
+export default class GitCard extends Component {
     state = {
-        dados : [],
+        dados: [],
     }
 
-    async loadData(){
+    async loadData() {
         const response = await api.get('/users');
-        this.setState({dados : response.data});
+        this.setState({ dados: response.data });
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.loadData();
     }
 
-    render(){
-        return(
+    render() {
+        return (
             <div className='main-container'>
-               {
-                   this.state.dados.map(d =>(
-                    <div className='card' key={d._id}>
-                        <img id='avatar' src={d.avatar_url} alt=''/>
-                        <div id='info'>
-                            <span>{d.name}</span>
-                            <p>{d.company}</p>
-                            <p>{d.bio}</p>
-                        </div>
-                    </div>
-                   ))
-               }
+                {
+                    this.state.dados.map(d => (
+                        <a href={`./detail/${d._id}`}>
+                            <div className='card' key={d._id}>
+                                <img id='avatar' src={d.avatar_url} alt='' />
+                                <div id='info'>
+                                    <span>{d.name}</span>
+                                    <p>{d.company}</p>
+                                    <p>{d.bio}</p>
+                                </div>
+                            </div>
+                        </a>
+                    ))
+
+                }
             </div>
         )
     }

@@ -3,6 +3,14 @@ const axios = require('axios');
 const User = mongoose.model('User');
 
 module.exports = {
+    //List By ID
+    async listByID(req, res){
+        const userId = await req.params.id;
+        //console.log(userId)
+        const response = await User.findById(userId);
+        res.json(response);
+    },
+
     //Login
     async login(req,res){
         const username = await req.params.username;

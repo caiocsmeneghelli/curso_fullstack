@@ -25,7 +25,7 @@ module.exports = {
 
     //Persistir no banco usuários do Git
     async persistUser(req,res){
-        const {userGit} = req.body;
+        const {userGit, sexo, linguagem, experiencia} = req.body;
         const response = await axios.get(`https://api.github.com/users/${userGit}`);
         const {login,name,avatar_url,company,public_repos,followers,bio} = response.data;
         const payload = await User.create({
@@ -35,7 +35,10 @@ module.exports = {
             company,
             public_repos,
             followers,
-            bio
+            bio,
+            sexo,
+            linguagem,
+            experiencia
         })
         res.json(payload);
     },
